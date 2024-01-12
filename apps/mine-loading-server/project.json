@@ -1,0 +1,53 @@
+{
+  "name": "mine-loading-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/mine-loading-server/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/mine-loading-server",
+        "main": "apps/mine-loading-server/src/main.ts",
+        "tsConfig": "apps/mine-loading-server/tsconfig.app.json",
+        "assets": ["apps/mine-loading-server/src/assets"],
+        "webpackConfig": "apps/mine-loading-server/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "mine-loading-server:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "mine-loading-server:build:development"
+        },
+        "production": {
+          "buildTarget": "mine-loading-server:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/mine-loading-server/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
